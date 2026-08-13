@@ -1,0 +1,73 @@
+<nav class="navigation" [class.menu-open]="menuActive">
+  <div class="nav-left" [class.hide]="menuActive">
+    <div class="logo">
+      <a [routerLink]="(isEmployee$ | async) ? '/products-admin' : (isCustomer$ | async) ? '/products' : '/products'">
+        <img src="assets/plantLogo.png" alt="logo" />
+      </a>
+    </div>
+    <p class="title">Pflanziversum</p>
+  </div>
+
+  <div class="navigationGr" [class.hide]="menuActive">
+    <a *ngIf="!(isEmployee$ | async)" routerLink="/products" routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }">Produkte</a>
+    <a *ngIf="!(isLoggedIn$ | async)" routerLink="/login" routerLinkActive="active"><img src="assets/login.png"
+        alt="Login" /></a>
+
+    <ng-container *ngIf="(isLoggedIn$ | async) && (isCustomer$ | async)">
+      <a routerLink="/customer-profile" routerLinkActive="active">Mein Account</a>
+      <a routerLink="/customer-orders" routerLinkActive="active">Meine Bestellungen</a>
+      <a routerLink="/cart" routerLinkActive="active"><img src="assets/cart.png" alt="Warenkorb" /></a>
+      <a (click)="logout()"><img src="assets/logout.png" alt="Logout" /></a>
+    </ng-container>
+
+    <ng-container *ngIf="(isLoggedIn$ | async) && (isEmployee$ | async)">
+      <a routerLink="/employee-profile" routerLinkActive="active">Mein Account</a>
+      <a routerLink="/products-admin" routerLinkActive="active">Produkte verwalten</a>
+      <a routerLink="/orders-admin" routerLinkActive="active">Bestellungen verwalten</a>
+      <a routerLink="/customers-admin" routerLinkActive="active">Kunden verwalten</a>
+      <a routerLink="/logs" routerLinkActive="active">Logbuch</a>
+      <a (click)="logout()"><img src="assets/logout.png" alt="Logout" /></a>
+    </ng-container>
+  </div>
+
+  <div class="ham-menu" (click)="toggleMenu()" [class.active]="menuActive">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+
+<div class="off-screen-menu" [class.active]="menuActive">
+  <div class="nav-logo">
+    <p class="title">Pflanziversum</p>
+    <div class="logo">
+      <a [routerLink]="(isEmployee$ | async) ? '/products-admin' : (isCustomer$ | async) ? '/products' : '/products'">
+        <img src="assets/plantLogo.png" alt="logo" />
+      </a>
+    </div>
+  </div>
+
+  <ul class="menu">
+    <li *ngIf="!(isEmployee$ | async)"><a routerLink="/products" routerLinkActive="active">Produkte</a></li>
+    <li *ngIf="!(isLoggedIn$ | async)"><a routerLink="/login" routerLinkActive="active"><img src="assets/login.png"
+          alt="Login" /></a></li>
+
+    <ng-container *ngIf="(isLoggedIn$ | async) && (isCustomer$ | async)">
+      <li><a routerLink="/customer-profile" routerLinkActive="active">Mein Account</a></li>
+      <li><a routerLink="/customer-orders" routerLinkActive="active">Meine Bestellungen</a></li>
+      <li><a routerLink="/cart" routerLinkActive="active"><img src="assets/cart.png" alt="Warenkorb" /></a></li>
+      <li><a (click)="logout()"><img src="assets/logout.png" alt="Logout" /></a></li>
+    </ng-container>
+
+    <ng-container *ngIf="(isLoggedIn$ | async) && (isEmployee$ | async)">
+      <li><a routerLink="/employee-profile" routerLinkActive="active">Mein Account</a></li>
+      <li><a routerLink="/products-admin" routerLinkActive="active">Produkte verwalten</a></li>
+      <li><a routerLink="/orders-admin" routerLinkActive="active">Bestellungen verwalten</a></li>
+      <li><a routerLink="/customers-admin" routerLinkActive="active">Kunden verwalten</a></li>
+      <li><a routerLink="/logs" routerLinkActive="active">Logbuch</a></li>
+      <li><a (click)="logout()"><img src="assets/logout.png" alt="Logout" /></a></li>
+    </ng-container>
+  </ul>
+</div>

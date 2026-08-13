@@ -1,0 +1,29 @@
+<div *ngIf="isEmployee; else accessDenied" class="dashboard-container">
+  <div *ngIf="currentUser; else loading" class="dashboard-content">
+
+    <h2 class="headline">Bestellungen</h2>
+
+    <div class="orders-wrapper">
+      <div class="order-card" *ngFor="let order of orders" tabindex="0">
+        <span class="order-entry">Bestell-ID: {{ order.order_id }}</span>
+        <span class="order-entry">Datum: {{ order.date }}</span>
+        <span class="order-entry">Kunden-ID: {{ order.customer_id }}</span>
+        <span class="order-entry">Status: {{ order.delivery_status }}</span>
+        <span class="order-entry">Gesamt: {{ order.total_price | currency: 'EUR' }}</span>
+        <span class="order-entry">Zahlung: {{ order.payment_method }}</span>
+        <button class="edit-button" (click)="goToEditOrder(order); $event.stopPropagation()">Bestellung
+          bearbeiten</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #accessDenied>
+  <div class="alert alert-warning">
+    <p>Zugriff verweigert. Nur für Mitarbeiter.</p>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <p class="loader">Lade Bestellungen...</p>
+</ng-template>

@@ -1,0 +1,25 @@
+<div *ngIf="isCustomer; else accessDenied" class="dashboard-container">
+  <div *ngIf="currentUser; else loading" class="dashboard-content">
+    <div class="user-main">
+      <h2 class="headline">Willkommen, {{ currentUser?.first_name }}!</h2>
+
+      <div class="user-info">
+        <h3>Deine Profildaten</h3>
+        <p><strong>Name:</strong> {{ currentUser?.first_name }} {{ currentUser?.last_name }}</p>
+        <p><strong>Email:</strong> {{ currentUser?.email }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #accessDenied>
+  <div class="alert-container">
+    <div class="alert-box">
+      <p>Zugriff verweigert. Nur für eingeloggte Nutzer.</p>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <p class="loader">Lade Benutzerdaten...</p>
+</ng-template>

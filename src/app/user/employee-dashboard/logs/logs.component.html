@@ -1,0 +1,77 @@
+<div *ngIf="isEmployee; else accessDenied" class="dashboard-container">
+  <div *ngIf="currentUser; else loading" class="dashboard-content">
+
+    <h2 class="headline">Änderungsprotokoll</h2>
+
+    <div class="log-selector">
+      <label for="logType">Kategorie wählen:</label>
+      <div class="custom-select-wrapper">
+        <select id="logType" [(ngModel)]="selectedLogType">
+          <option value="products">Produktänderungen ({{ logs?.products?.length || 0 }})</option>
+          <option value="orders">Bestelländerungen ({{ logs?.orders?.length || 0 }})</option>
+          <option value="users">Benutzeränderungen ({{ logs?.users?.length || 0 }})</option>
+        </select>
+        <span class="chevron">&#9662;</span>
+      </div>
+    </div>
+
+    <div class="logs-wrapper">
+      <div *ngIf="selectedLogType === 'products' && logs?.products?.length" class="log-section">
+        <h3 class="subheadline">Produktänderungen</h3>
+        <div class="log-card" *ngFor="let log of logs.products" tabindex="0">
+          <span class="log-entry">Mitarbeiter-ID: {{ log.employee_id || 'System' }}</span>
+          <span class="log-entry">ID: {{ log.product_change_id }}</span>
+          <span class="log-entry">Produkt-ID: {{ log.product_id }}</span>
+          <span class="log-entry">Feld: {{ log.field_changed }}</span>
+          <span class="log-entry">Datum: {{ log.change_date | date:'dd.MM.yyyy' }}</span>
+          <div class="change-values">
+            <span class="change-before">Vorher: {{ log.field_before || '–' }}</span>
+            <span class="change-arrow">→</span>
+            <span class="change-after">Nachher: {{ log.field_after || '–' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="selectedLogType === 'orders' && logs?.orders?.length" class="log-section">
+        <h3 class="subheadline">Bestelländerungen</h3>
+        <div class="log-card" *ngFor="let log of logs.orders" tabindex="0">
+          <span class="log-entry">ID: {{ log.order_change_id }}</span>
+          <span class="log-entry">Bestell-ID: {{ log.order_id }}</span>
+          <span class="log-entry">Feld: {{ log.field_changed }}</span>
+          <span class="log-entry">Datum: {{ log.change_date | date:'dd.MM.yyyy' }}</span>
+          <div class="change-values">
+            <span class="change-before">Vorher: {{ log.field_before || '–' }}</span>
+            <span class="change-arrow">→</span>
+            <span class="change-after">Nachher: {{ log.field_after || '–' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="selectedLogType === 'users' && logs?.users?.length" class="log-section">
+        <h3 class="subheadline">Benutzeränderungen</h3>
+        <div class="log-card" *ngFor="let log of logs.users" tabindex="0">
+          <span class="log-entry">ID: {{ log.user_change_id }}</span>
+          <span class="log-entry">Benutzer-ID: {{ log.user_id }}</span>
+          <span class="log-entry">Feld: {{ log.field_changed }}</span>
+          <span class="log-entry">Datum: {{ log.change_date | date:'dd.MM.yyyy' }}</span>
+          <div class="change-values">
+            <span class="change-before">Vorher: {{ log.field_before || '–' }}</span>
+            <span class="change-arrow">→</span>
+            <span class="change-after">Nachher: {{ log.field_after || '–' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #accessDenied>
+  <div class="alert alert-warning">
+    <p>Zugriff verweigert. Nur für Mitarbeiter.</p>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <p class="loader">Lade Protokolldaten...</p>
+</ng-template>

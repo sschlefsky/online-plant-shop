@@ -1,0 +1,39 @@
+<div *ngIf="isCustomer; else accessDenied" class="dashboard-container">
+  <div *ngIf="currentUser; else loading" class="dashboard-content">
+    <h2 class="headline">Meine Bestellungen</h2>
+
+    <div class="orders-wrapper" *ngIf="orders.length; else none">
+      <div class="order-card" *ngFor="let order of orders">
+        <span class="order-entry">
+          <span class="label">Bestell‑ID:</span> {{ order.order_id }}
+        </span>
+        <span class="order-entry">
+          <span class="label">Datum:</span> {{ order.date | date:'dd.MM.yyyy' }}
+        </span>
+        <span class="order-entry">
+          <span class="label">Status:</span> {{ order.delivery_status }}
+        </span>
+        <span class="order-entry">
+          <span class="label">Gesamt:</span> {{ order.total_price }}
+        </span>
+        <span class="order-entry">
+          <span class="label">Zahlung:</span> {{ order.payment_method }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #none>
+  <p>Du hast noch keine Bestellungen.</p>
+</ng-template>
+
+<ng-template #accessDenied>
+  <div class="alert alert-warning">
+    <p>Zugriff verweigert. Nur für eingeloggte Nutzer.</p>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <p class="loader">Lade Bestellungen...</p>
+</ng-template>

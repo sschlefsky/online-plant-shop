@@ -1,0 +1,43 @@
+<h2 class="headline">
+  Mein Warenkorb
+</h2>
+
+<div *ngIf="cartItems.length; else emptyCart" class="cart-wrapper">
+  <ul class="cart-list">
+    <li *ngFor="let item of cartItems" class="cart-item">
+      <div class="item-details">
+        <div class="item-name">{{ item.name }}</div>
+        <div class="item-price">{{ (item.price)/item.quantity| currency:'EUR':'symbol' }}</div>
+      </div>
+
+      <div class="item-actions">
+        <div class="quantity-stepper">
+          <button (click)="decreaseQuantity(item)" aria-label="Menge verringern" class="step-btn">−</button>
+          <span class="quantity-display">{{ item.quantity }}</span>
+          <button (click)="increaseQuantity(item)" aria-label="Menge erhöhen" class="step-btn">+</button>
+        </div>
+
+        <button type="button" class="remove-btn" (click)="removeItem(item)" aria-label="Artikel entfernen">
+          ×
+        </button>
+      </div>
+    </li>
+  </ul>
+
+  <div class="summary">
+    <div class="total-price">
+      Gesamt: {{ totalPrice | currency:'EUR':'symbol' }}
+    </div>
+    <button type="button" class="order-btn" (click)="checkout()" [disabled]="!cartItems.length">
+      Bestellung aufgeben
+    </button>
+  </div>
+
+  <button type="button" class="clear-btn" (click)="clearCart()">
+    Alles löschen
+  </button>
+</div>
+
+<ng-template #emptyCart>
+  <p class="empty-text">Dein Warenkorb ist leer.</p>
+</ng-template>

@@ -1,0 +1,49 @@
+<div class="product-page">
+  <button class="back-button" (click)="goBack()">← Zurück</button>
+
+  <div *ngIf="product; else errorTpl" class="product-content">
+    <div class="image-wrapper">
+      <img [src]="'/assets/images/' + product.image" [alt]="product.name" class="product-image" />
+    </div>
+
+    <div class="info-wrapper">
+      <h2 class="headline">{{ product.name }}</h2>
+
+      <div class="price-block">
+        <p class="price-display">
+          <strong id="price">{{ product.price | number:'1.0-0' }},-</strong>
+        </p>
+        <p class="price-note">pro Stück inkl. MwSt.</p>
+      </div>
+
+      <div *ngIf="showLowStock" class="stock-warning">
+        Nur noch wenige Produkte verfügbar!
+      </div>
+
+      <ul class="description-list">
+        <li>{{ product.description }}</li>
+      </ul>
+
+      <button *ngIf="isCustomer" (click)="addToCart()">
+        🛒 Zum Warenkorb hinzufügen
+      </button>
+    </div>
+  </div>
+
+  <ng-template #errorTpl>
+    <div class="product-content">
+      <p>Produkt nicht gefunden.</p>
+    </div>
+  </ng-template>
+
+  <div class="recommendation-section" *ngIf="recommendedProducts.length > 0">
+    <h3>🌿 Weitere Artikel, die dir gefallen könnten</h3>
+    <div class="recommendation-list">
+      <div *ngFor="let item of recommendedProducts" class="recommendation-card" (click)="goToProduct(item.product_id)">
+        <img [src]="'/assets/images/' + item.image" [alt]="item.name" />
+        <h4>{{ item.name }}</h4>
+        <p>{{ item.price | number:'1.0-0' }},-</p>
+      </div>
+    </div>
+  </div>
+</div>

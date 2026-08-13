@@ -1,0 +1,51 @@
+<div *ngIf="isEmployee; else accessDenied" class="dashboard-container">
+  <div *ngIf="currentUser; else loading" class="dashboard-content">
+
+    <ng-container *ngIf="order; else errorTpl">
+      <div class="order-content">
+        <div class="info-wrapper">
+          <h2 class="headline">Bestellung</h2>
+          <form class="order-edit-form" (ngSubmit)="editOrder()">
+            <label for="order-id-label" class="order-edit-label">Bestell-ID:</label>
+            <label for="order-id-label" class="order-edit-label">{{ order.order_id }}</label>
+            <label for="order-date-label" class="order-edit-label">Datum:</label>
+            <input type="text" id="order-edit-date" name="order-edit-date" class="order-edit-input"
+              value="{{ order.date }}" [(ngModel)]="order.date" required>
+            <label for="order-customer-id-label" class="order-edit-label">Kunden-ID:</label>
+            <input type="text" id="order-edit-customer-id" name="order-edit-customer-id" class="order-edit-input"
+              value="{{ order.customer_id }}" [(ngModel)]="order.customer_id" required>
+            <label for="order-status-label" class="order-edit-label">Status:</label>
+            <input type="text" id="order-edit-status" name="order-edit-status" class="order-edit-input"
+              value="{{ order.delivery_status }}" [(ngModel)]="order.delivery_status" required>
+            <label for="order-total-price-label" class="order-edit-label">Gesamt:</label>
+            <input type="text" id="order-edit-total-price" name="order-edit-total-price" class="order-edit-input"
+              value="{{ order.total_price | currency: 'EUR' }}" [(ngModel)]="order.total_price" required>
+            <label for="order-payment-method-label" class="order-edit-label">Zahlung:</label>
+            <input type="text" id="order-edit-payment-method" name="order-edit-payment-method" class="order-edit-input"
+              value="{{ order.payment_method }}" [(ngModel)]="order.payment_method" required>
+            <button type="submit" class="order-edit-button">Bestellung speichern</button>
+            <button (click)="goBack()">Zurück zu den Bestellungen</button>
+          </form>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+</div>
+
+<ng-template #errorTpl>
+  <div class="product-content">
+    <p>{{ error || 'Bestellung nicht gefunden.' }}</p>
+    <button (click)="goBack()">Zurück zu den Bestellungen</button>
+  </div>
+</ng-template>
+
+<ng-template #accessDenied>
+  <div class="alert alert-warning">
+    <p>Zugriff verweigert. Nur für Mitarbeiter.</p>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <p class="loader">Lade Bestellung...</p>
+</ng-template>

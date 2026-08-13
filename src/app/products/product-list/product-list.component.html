@@ -1,0 +1,22 @@
+<h2 class="headline">
+  {{ (isEmployee$ | async) ? 'Produkte verwalten' : 'Produkte' }}
+</h2>
+
+<div class="products-wrapper">
+  <div class="product-card" *ngFor="let product of product" tabindex="0">
+    <img class="product-image" [src]="'assets/images/' + product.image" [alt]="product.name" />
+    <span class="product-name">{{ product.name }}</span>
+
+    <span class="product-price">{{ product.price | number:'1.0-0' }},-</span>
+
+    <button *ngIf="!(isEmployee$ | async)" class="details-button"
+      (click)="goToDetails(product); $event.stopPropagation()">
+      Details ansehen
+    </button>
+
+    <button *ngIf="isEmployee$ | async" class="edit-button"
+      (click)="goToEditProducts(product); $event.stopPropagation()">
+      Produkt bearbeiten
+    </button>
+  </div>
+</div>

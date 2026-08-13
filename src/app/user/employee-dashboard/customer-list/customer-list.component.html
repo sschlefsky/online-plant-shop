@@ -1,0 +1,30 @@
+<div *ngIf="isEmployee; else accessDenied" class="dashboard-container">
+  <div *ngIf="currentUser; else loading" class="dashboard-content">
+
+    <h2 class="headline">Kunden</h2>
+
+    <div class="customers-wrapper">
+      <div class="customer-card" *ngFor="let customer of customers" tabindex="0">
+        <span class="customer-entry">Kunden-ID: {{ customer.customer_id }}</span>
+        <span class="customer-entry">Name: {{ customer.first_name }} {{ customer.last_name }}</span>
+        <span class="customer-entry">Email: {{ customer.email }}</span>
+        <span class="customer-entry">Straße: {{ customer.street }} {{ customer.house_number }}</span>
+        <span class="customer-entry">PLZ / Stadt: {{ customer.zipcode }} {{ customer.city }}</span>
+        <span class="customer-entry">Land: {{ customer.country }}</span>
+        <button class="edit-button" (click)="goToEditCustomer(customer); $event.stopPropagation()">Kunde
+          bearbeiten</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #accessDenied>
+  <div class="alert alert-warning">
+    <p>Zugriff verweigert. Nur für Mitarbeiter.</p>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <p class="loader">Lade Kunden...</p>
+</ng-template>

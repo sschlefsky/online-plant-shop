@@ -1,0 +1,89 @@
+:host {
+  display: block;
+  font-family: system-ui, sans-serif;
+}
+
+.headline {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.orders-wrapper {
+  margin: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.order-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.25rem;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.order-entry {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.25rem;
+}
+
+.edit-button {
+  margin-top: 5px;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #94bb9b;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+edit-button:hover {
+  background: #5c7761;
+}
+
+.loader {
+  padding: 1rem;
+  text-align: center;
+  color: #555;
+  font-style: italic;
+}
+
+.error {
+  color: #c00;
+  font-weight: 600;
+}
+
+.alert {
+  padding: 1rem;
+  border-radius: 6px;
+  background-color: #fff3cd;
+  color: #856404;
+  max-width: 400px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}

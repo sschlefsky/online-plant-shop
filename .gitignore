@@ -1,0 +1,20 @@
+# Compiled output
+/dist/
+
+# Dependencies
+/node_modules/
+
+# IDE settings
+.vscode/
+
+# Angular cache
+/.angular/
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# Operating system files
+.DS_Store
+Thumbs.db

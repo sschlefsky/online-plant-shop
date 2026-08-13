@@ -1,0 +1,11 @@
+.footer {
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 0.625rem 1.25rem;
+  background-color: #4f704f;
+  color: #cfd8cf;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+}

@@ -1,0 +1,46 @@
+<div *ngIf="isEmployee; else accessDenied" class="dashboard-container">
+  <div *ngIf="currentUser; else loading" class="dashboard-content">
+    <div class="user-main">
+      <h2 class="headline">Willkommen {{ currentUser?.first_name }}!</h2>
+
+      <div class="user-info">
+        <p><strong>Name:</strong> {{ currentUser?.first_name }} {{ currentUser?.last_name }}</p>
+        <p><strong>Email:</strong> {{ currentUser?.email }}</p>
+        <h3>Adresse</h3>
+        <p *ngIf="currentUser?.address?.street">
+          <strong>Straße:</strong> {{ currentUser.address.street }} {{ currentUser.address.house_number }}
+        </p>
+
+        <p *ngIf="currentUser?.address?.zipcode || currentUser?.address?.city">
+          <strong>Ort:</strong> {{ currentUser.address.zipcode }} {{ currentUser.address.city }}
+        </p>
+        
+        <p *ngIf="currentUser?.address?.country">
+          <strong>Land:</strong> {{ currentUser.address.country }}
+        </p>
+      </div>
+    </div>
+
+    <aside class="employee-details product-card" *ngIf="currentUser?.monthly_salary != null || currentUser?.role">
+      <h3>Mitarbeiterinfo</h3>
+
+      <p *ngIf="currentUser?.employee_data?.role">
+        <strong>Rolle:</strong> {{ currentUser.role }}
+      </p>
+
+      <p *ngIf="currentUser?.employee_data?.monthly_salary != null">
+        <strong>Monatsgehalt:</strong> {{ currentUser.employee_data.monthly_salary | currency:'EUR' }}
+      </p>
+    </aside>
+  </div>
+</div>
+
+<ng-template #accessDenied>
+  <div class="alert alert-warning">
+    <p>Zugriff verweigert. Nur für Mitarbeiter.</p>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <p class="loader">Lade Benutzerdaten...</p>
+</ng-template>
